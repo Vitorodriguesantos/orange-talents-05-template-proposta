@@ -28,6 +28,10 @@ public class Proposta {
 	@Positive
 	private BigDecimal salario;
 	
+	public Proposta() {
+		
+	}
+	
 	public Proposta(String cPFouCNPJ, @Email String email, @NotBlank String nome, @NotBlank String endereco,
 			@Positive BigDecimal salario) {
 		super();
