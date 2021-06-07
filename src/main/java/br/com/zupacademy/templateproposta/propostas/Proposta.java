@@ -3,6 +3,8 @@ package br.com.zupacademy.templateproposta.propostas;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +29,8 @@ public class Proposta {
 	private String endereco;
 	@Positive
 	private BigDecimal salario;
+	@Enumerated(EnumType.STRING)
+	private StatusProposta status;
 	
 	public Proposta() {
 		
@@ -45,5 +49,29 @@ public class Proposta {
 	public Long getId() {
 		return id;
 	}
+
+	public String getCPFouCNPJ() {
+		return CPFouCNPJ;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public BigDecimal getSalario() {
+		return salario;
+	}
+	
+	public void setStatus(StatusProposta status) {
+        this.status = status;
+    }
 
 }
