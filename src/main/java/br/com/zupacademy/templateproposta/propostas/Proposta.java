@@ -52,6 +52,10 @@ public class Proposta {
 		this.salario = salario;
 	}
 
+	public StatusProposta getStatus() {
+		return status;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -79,6 +83,10 @@ public class Proposta {
 	public void setStatus(StatusProposta status) {
         this.status = status;
     }
+
+	public Cartoes getCartao() {
+		return cartao;
+	}
 
 	public void setCartao(Cartoes cartao) {
 		this.cartao = cartao;

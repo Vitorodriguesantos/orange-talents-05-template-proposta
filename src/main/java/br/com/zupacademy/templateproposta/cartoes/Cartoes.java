@@ -31,6 +31,9 @@ public class Cartoes {
 		this.titular = titular;
 		this.limite = limite;
 	}
-	
+
+	public String getId() {
+		return id;
+	}
 	
 }
