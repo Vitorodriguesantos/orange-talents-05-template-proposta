@@ -48,7 +48,8 @@ public class PropostaForm {
 	}
 	
 	public Proposta converter() {
-		return new Proposta(CPFouCNPJ, email, nome, endereco, salario);
+		return new Proposta(this.CPFouCNPJ, this.email, this.nome, this.endereco, this.salario);
+		
 	}
 	
 	

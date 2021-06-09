@@ -8,10 +8,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
+import br.com.zupacademy.templateproposta.cartoes.Cartoes;
 import br.com.zupacademy.templateproposta.validacao.CPFOrCNPJ;
 
 @Entity
@@ -31,6 +34,9 @@ public class Proposta {
 	private BigDecimal salario;
 	@Enumerated(EnumType.STRING)
 	private StatusProposta status;
+	@OneToOne
+	@JoinColumn(name="numero_cartao")
+	private Cartoes cartao;
 	
 	public Proposta() {
 		
@@ -73,5 +79,9 @@ public class Proposta {
 	public void setStatus(StatusProposta status) {
         this.status = status;
     }
+
+	public void setCartao(Cartoes cartao) {
+		this.cartao = cartao;
+	}
 
 }

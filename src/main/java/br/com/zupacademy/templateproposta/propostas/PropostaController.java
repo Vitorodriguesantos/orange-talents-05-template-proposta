@@ -34,10 +34,10 @@ public class PropostaController {
 		}
 		//criando nova proposta
 		Proposta aProposta = criandoNovaProposta(form);
+		
 		//validando nova proposta
 		ConsultaDadosSolicitanteDto retornoValidacao = verificaDadosSolicitante(aProposta);
 		aProposta.setStatus(MapearStatusProposta.mStatus.get(retornoValidacao.getResultadoSolicitacao()));
-		System.out.println(retornoValidacao.getResultadoSolicitacao());
 		propostaRepository.save(aProposta);
 		
 		return ResponseEntity.created(uriBuilder.path("/propostas/{id}").buildAndExpand(aProposta.getId()).toUri()).body(aProposta);
@@ -52,13 +52,11 @@ public class PropostaController {
 	private ConsultaDadosSolicitanteDto verificaDadosSolicitante(Proposta aProposta) {
 
 		ConsultaDadosSolicitanteForm consultaDadosSolicitanteForm = new ConsultaDadosSolicitanteForm(aProposta.getCPFouCNPJ(), aProposta.getNome(), aProposta.getId().toString());
-		
 		try { 
-			
 			ConsultaDadosSolicitanteDto consultaDadosSolicitanteDto = consultaDadosSolicitante.analisar(consultaDadosSolicitanteForm);
 			return consultaDadosSolicitanteDto;
 			
-		}catch (FeignException.UnprocessableEntity e) {
+		}catch (FeignException.UnprocessableEntity exception) {
 			return new ConsultaDadosSolicitanteDto(aProposta.getCPFouCNPJ(), aProposta.getNome(), "COM_RESTRICAO", aProposta.getId().toString());
 		}
 	}

@@ -1,12 +1,12 @@
-package br.com.zupacademy.templateproposta.propostas;
+package br.com.zupacademy.templateproposta.cartoes;
 
 import org.springframework.boot.jackson.JsonComponent;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonComponent
-public class ConsultaDadosSolicitanteForm {
-
+public class VinculaCartoesForm {
+	
 	@JsonProperty
     private String documento;
     @JsonProperty
@@ -15,15 +15,14 @@ public class ConsultaDadosSolicitanteForm {
     private String idProposta;
     
     @Deprecated
-    public ConsultaDadosSolicitanteForm() {
+    public VinculaCartoesForm() {
     	
     }
-    
-	public ConsultaDadosSolicitanteForm(String documento, String nome, String idProposta) {
-		
+
+	public VinculaCartoesForm(String documento, String nome, String idProposta) {
 		this.documento = documento;
 		this.nome = nome;
 		this.idProposta = idProposta;
 	}
-    
+
 }
