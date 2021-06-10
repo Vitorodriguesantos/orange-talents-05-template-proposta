@@ -93,6 +93,18 @@ services:
       KAFKA_HOST: "kafka:29092"
       JAEGER_ENDPOINT: http://jaeger:14268/api/traces
 
+  proposta:
+    image: 'vrodrigues/aproposta'
+    ports:
+      - 8080:8080
+    depends_on:
+      - analise
+      - contas
+    environment:
+      PROPOSTA_ANALISE_SOLICITANTE: http://analise:9999
+      SERVICO_RECURSOS_CARTOES: http://contas:8888
+      TEMPO_SCHEDULED_VINCULAR.CARTOES: 9000
+
   jaeger:
     image: jaegertracing/all-in-one
     ports:

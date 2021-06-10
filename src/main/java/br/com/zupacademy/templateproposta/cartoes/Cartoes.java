@@ -2,6 +2,7 @@ package br.com.zupacademy.templateproposta.cartoes;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,6 +20,7 @@ public class Cartoes {
 	private String titular;
 	@NotNull
 	private BigDecimal limite;
+	private List<Biometrias> biometrias;
 	
 	@Deprecated
 	public Cartoes() {
