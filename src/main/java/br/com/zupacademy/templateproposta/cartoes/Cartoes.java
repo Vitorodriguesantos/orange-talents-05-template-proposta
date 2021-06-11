@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -20,7 +22,6 @@ public class Cartoes {
 	private String titular;
 	@NotNull
 	private BigDecimal limite;
-	private List<Biometrias> biometrias;
 	
 	@Deprecated
 	public Cartoes() {
