@@ -2,12 +2,11 @@ package br.com.zupacademy.templateproposta.cartoes;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -22,6 +21,8 @@ public class Cartoes {
 	private String titular;
 	@NotNull
 	private BigDecimal limite;
+	@Enumerated(EnumType.STRING)
+	private StatusCartao statusCartao = StatusCartao.DESBLOQUEADO;
 	
 	@Deprecated
 	public Cartoes() {
@@ -37,6 +38,14 @@ public class Cartoes {
 
 	public String getId() {
 		return id;
+	}
+	
+	public void setStatusCartao(StatusCartao status) {
+		this.statusCartao = status;
+	}
+
+	public boolean estaBloqueado() {
+		return this.statusCartao.equals(StatusCartao.BLOQUEADO);
 	}
 	
 }
