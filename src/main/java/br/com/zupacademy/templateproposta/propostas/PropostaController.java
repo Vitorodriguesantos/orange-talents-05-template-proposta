@@ -1,5 +1,7 @@
 package br.com.zupacademy.templateproposta.propostas;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -27,13 +29,21 @@ public class PropostaController {
 	@Autowired
 	private ConsultaDadosSolicitante consultaDadosSolicitante;
 	
+	@Autowired
+	private PropostaMetricas propostaMetricas;
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<PropostaDto> buscarProposta(@PathVariable Long id){
+		final Long inicioExecucao = System.currentTimeMillis();
 		Optional<Proposta> aProposta = propostaRepository.findById(id);
 		if(aProposta.isPresent()) {
 			return ResponseEntity.ok(new PropostaDto(aProposta.get()));
 		}
+			final Long fimExecucao = System.currentTimeMillis();
+			final Long tempoExecucao = fimExecucao - inicioExecucao;
+			propostaMetricas.incrementaTempoProposta(Duration.of(tempoExecucao,ChronoUnit.MILLIS));
 			return ResponseEntity.notFound().build();
+		
 	}
 	
 	@PostMapping
@@ -50,7 +60,7 @@ public class PropostaController {
 		ConsultaDadosSolicitanteDto retornoValidacao = verificaDadosSolicitante(aProposta);
 		aProposta.setStatus(MapearStatusProposta.mStatus.get(retornoValidacao.getResultadoSolicitacao()));
 		propostaRepository.save(aProposta);
-		
+		propostaMetricas.incrementaNovaProposta();
 		return ResponseEntity.created(uriBuilder.path("/propostas/{id}").buildAndExpand(aProposta.getId()).toUri()).body(aProposta);
 	}
 
