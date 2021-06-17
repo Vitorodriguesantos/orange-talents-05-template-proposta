@@ -1,6 +1,7 @@
 package br.com.zupacademy.templateproposta.viagens;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -43,8 +44,17 @@ public class Viagem {
 		this.agenteUser = agenteUser;
 		this.cartao = cartao;
 	}
-	
-	
-	
+
+	public String getDestino() {
+		return destino;
+	}
+
+	public LocalDateTime getTerminoViagem() {
+		return terminoViagem;
+	}
+
+	public String dataTerminoFormatada(DateTimeFormatter formato) {
+		return terminoViagem.format(formato);
+	}
 	
 }
