@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import br.com.zupacademy.templateproposta.carteiras.VincularCarteiraDigitalDto;
+import br.com.zupacademy.templateproposta.carteiras.VincularCarteiraDigitalForm;
 import br.com.zupacademy.templateproposta.viagens.NotificaSistemaBancarioDto;
 import br.com.zupacademy.templateproposta.viagens.NotificaSistemaBancarioForm;
 
@@ -25,4 +27,9 @@ public interface VinculaCartoes {
 				consumes = "application/json",produces = "application/json")
 	NotificaSistemaBancarioDto notificarViagem(@PathVariable("idCartao") String idCartao,
 											@RequestBody NotificaSistemaBancarioForm form);
+	
+	@RequestMapping(method = RequestMethod.POST, value="/api/cartoes/{idCartao}/carteiras",
+			consumes = "application/json",produces = "application/json")
+	VincularCarteiraDigitalDto vincularCarteira(@PathVariable("idCartao") String idCartao,
+										@RequestBody VincularCarteiraDigitalForm form);
 }
