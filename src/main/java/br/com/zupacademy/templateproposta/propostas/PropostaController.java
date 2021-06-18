@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import feign.FeignException;
+import io.opentracing.Span;
+import io.opentracing.Tracer;
 
 @RestController @RequestMapping("/propostas")
 public class PropostaController {
@@ -31,6 +33,9 @@ public class PropostaController {
 	
 	@Autowired
 	private PropostaMetricas propostaMetricas;
+	
+	@Autowired
+	private Tracer tracer;
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<PropostaDto> buscarProposta(@PathVariable Long id){
@@ -49,6 +54,12 @@ public class PropostaController {
 	@PostMapping
 	@Transactional
 	public ResponseEntity<?> novaProposta(@RequestBody @Valid PropostaForm form, UriComponentsBuilder uriBuilder){
+		
+		Span oSpan = tracer.activeSpan();
+		oSpan.setTag("testeTag", "propostaTag");
+		oSpan.setBaggageItem("testeBaggage", "propostaBaggage");
+		oSpan.log("TesteLog");
+		
 		Optional<Proposta> possivelProposta = propostaRepository.findByCPFouCNPJ(form.getCPFouCNPJ());
 		if(possivelProposta.isPresent()) {
 			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
