@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.zupacademy.templateproposta.validacao.EncryptDocumento;
 import feign.FeignException;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
@@ -60,7 +61,7 @@ public class PropostaController {
 		oSpan.setBaggageItem("testeBaggage", "propostaBaggage");
 		oSpan.log("TesteLog");
 		
-		Optional<Proposta> possivelProposta = propostaRepository.findByCPFouCNPJ(form.getCPFouCNPJ());
+		Optional<Proposta> possivelProposta = propostaRepository.findByCPFouCNPJ(EncryptDocumento.encriptDocumento(form.getCPFouCNPJ()));
 		if(possivelProposta.isPresent()) {
 			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
 		}
